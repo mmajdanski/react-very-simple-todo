@@ -1,21 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, View, Button } from "react-native";
+import GoalsInput from "./components/goalsInput";
+import GoalsView from "./components/goalsView";
 
 export default function App() {
+  interface CourseGoalsInterface {
+    key: string;
+    value: string;
+  }
+
+  const [courseGoals, setCourseGoals] = useState([{} as CourseGoalsInterface]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const addGoalText = (goalName: string) => {
+    setCourseGoals([...courseGoals, { key: goalName, value: goalName }]);
+    setIsModalVisible(false);
+  };
+
+  const handleDeleteItem = (key: string) => {
+    setCourseGoals(courseGoals.filter((goal) => goal.key != key));
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={styles.mainWrapper}>
+      <Button title={"Add new Goal"} onPress={() => setIsModalVisible(true)} />
+      <GoalsInput isModalVisible={isModalVisible} addGoalText={addGoalText} />
+      <GoalsView
+        handleDeleteItem={handleDeleteItem}
+        courseGoals={courseGoals}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  mainWrapper: {
+    padding: 30,
   },
 });
