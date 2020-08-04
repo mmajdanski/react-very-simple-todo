@@ -1,4 +1,4 @@
-# Simple React-Native Todo
+# Simple React-Native Todo (Typescript)
 
 This is an extremely simple React-Native application that just shows a few of the built-in components in React-Native. There is very little added styling to these components and very little business logic. Even though the application looks a bit dull, it serves a purpose of showing begginers how simple React-Native can be
 
